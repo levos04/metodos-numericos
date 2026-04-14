@@ -10,6 +10,11 @@ export default function MetodoNewton() {
   const [error, setError] = useState("");
 
   const calcular = () => {
+    if (!funcion) return setError("Falta la función");
+    if (!x0) return setError("Falta el valor inicial x0");
+    if (!tolerancia) return setError("Falta la tolerancia");
+    if (!iteracionesMax) return setError("Faltan las iteraciones máximas");
+
     try {
       setError("");
 
@@ -47,18 +52,24 @@ export default function MetodoNewton() {
       />
 
       <input
+        type="number"
+        step="any"
         placeholder="Valor inicial x0"
         value={x0}
         onChange={(e) => setX0(e.target.value)}
       />
 
       <input
-        placeholder="Tolerancia (%)"
+        type="number"
+        step="any"
+        placeholder="Tolerancia decimal"
         value={tolerancia}
         onChange={(e) => setTolerancia(e.target.value)}
       />
 
       <input
+        type="number"
+        step="any"
         placeholder="Iteraciones máximas"
         value={iteracionesMax}
         onChange={(e) => setIteracionesMax(e.target.value)}
