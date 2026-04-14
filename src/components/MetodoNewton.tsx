@@ -49,6 +49,7 @@ export default function MetodoNewton() {
         placeholder="f(x) = x^3 - x - 2"
         value={funcion}
         onChange={(e) => setFuncion(e.target.value)}
+        style={inputStyle}
       />
 
       <input
@@ -57,6 +58,7 @@ export default function MetodoNewton() {
         placeholder="Valor inicial x0"
         value={x0}
         onChange={(e) => setX0(e.target.value)}
+        style={inputStyle}
       />
 
       <input
@@ -65,6 +67,7 @@ export default function MetodoNewton() {
         placeholder="Tolerancia decimal"
         value={tolerancia}
         onChange={(e) => setTolerancia(e.target.value)}
+        style={inputStyle}
       />
 
       <input
@@ -73,12 +76,17 @@ export default function MetodoNewton() {
         placeholder="Iteraciones máximas"
         value={iteracionesMax}
         onChange={(e) => setIteracionesMax(e.target.value)}
+        style={inputStyle}
       />
 
       <br /><br />
 
-      <button onClick={calcular}>Calcular</button>
-      <button onClick={limpiar}>Limpiar</button>
+      <button onClick={calcular} style={buttonStyle}>
+        Calcular
+      </button>
+      <button onClick={limpiar} style={buttonStyle}>
+        Limpiar
+      </button>
 
       {error && (
         <div style={{
@@ -93,17 +101,31 @@ export default function MetodoNewton() {
       )}
 
       {resultado && !error && (
-        <div>
+        <div
+          style={{
+            background: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            marginTop: "20px",
+            boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
+          }}
+        >
           <h3>Raíz aproximada: {resultado.raiz}</h3>
 
-          <table border={1}>
+          <table style={{
+            marginTop: "20px",
+            borderCollapse: "collapse",
+            width: "100%"
+          }} 
+          border={1}
+          >
             <thead>
               <tr>
-                <th>i</th>
-                <th>x</th>
-                <th>f(x)</th>
-                <th>f'(x)</th>
-                <th>Error %</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>i</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>x</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>f(x)</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>f'(x)</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>Error %</th>
               </tr>
             </thead>
             <tbody>
@@ -123,3 +145,21 @@ export default function MetodoNewton() {
     </div>
   );
 }
+
+const inputStyle = {
+  padding: "10px",
+  margin: "5px",
+  borderRadius: "6px",
+  border: "1px solid #ccc",
+  width: "180px"
+};
+
+const buttonStyle = {
+  padding: "10px 15px",
+  margin: "10px 5px",
+  borderRadius: "6px",
+  border: "none",
+  background: "#FFE816",
+  cursor: "pointer",
+  fontWeight: "bold"
+};
