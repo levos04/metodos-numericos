@@ -28,7 +28,7 @@ export default function Menu({ setMetodo }: Props) {
 const styles = {
   container: {
     textAlign: "center" as const,
-    marginTop: "50px",
+    marginTop: "60px",
   },
   title: {
     fontSize: "2.5rem",

@@ -8,7 +8,11 @@ function App() {
   const [metodo, setMetodo] = useState<string>("menu");
 
   return (
-    <div>
+    <div style={{
+      minHeight: "100vh",
+      background: "#f5f7fb",
+      padding: "20px"
+    }}>
       {metodo === "menu" && <Menu setMetodo={setMetodo} />}
 
       {metodo === "biseccion" && (

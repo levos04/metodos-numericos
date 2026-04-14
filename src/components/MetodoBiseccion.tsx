@@ -9,9 +9,8 @@ export default function MetodoBiseccion() {
   const [iteracionesMax, setIteracionesMax] = useState("");
   const [resultado, setResultado] = useState<any>(null);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const calcular = async () => {
+  const calcular = () => {
     if (!funcion) return setError("Falta la función");
     if (!a) return setError("Falta el valor de a");
     if (!b) return setError("Falta el valor de b");
@@ -20,9 +19,7 @@ export default function MetodoBiseccion() {
 
     try {
       setError("");
-      setLoading(true);
 
-      // Simulate async if needed, but for now sync
       const res = metodoBiseccion(
         funcion,
         parseFloat(a),
@@ -35,8 +32,6 @@ export default function MetodoBiseccion() {
     } catch (err: any) {
       setError(err.message);
       setResultado(null);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -51,112 +46,133 @@ export default function MetodoBiseccion() {
   };
 
   return (
-    <div className="metodo-container">
+    <div>
       <h2>Método de Bisección</h2>
 
-      <form className="input-form">
-        <div className="input-group">
-          <label htmlFor="funcion">Función f(x):</label>
-          <input
-            id="funcion"
-            type="text"
-            placeholder="Ej: x^3 - x - 2"
-            value={funcion}
-            onChange={(e) => setFuncion(e.target.value)}
-          />
-        </div>
+      <input
+        placeholder="f(x) = x^3 - x - 2"
+        value={funcion}
+        onChange={(e) => setFuncion(e.target.value)}
+        style={inputStyle}
+      />
 
-        <div className="input-group">
-          <label htmlFor="a">Valor de a:</label>
-          <input
-            id="a"
-            type="number"
-            step="any"
-            placeholder="Ej: 1"
-            value={a}
-            onChange={(e) => setA(e.target.value)}
-          />
-        </div>
+      <input
+        type="number"
+        step="any"
+        placeholder="a"
+        value={a}
+        onChange={(e) => setA(e.target.value)}
+        style={inputStyle}
+      />
 
-        <div className="input-group">
-          <label htmlFor="b">Valor de b:</label>
-          <input
-            id="b"
-            type="number"
-            step="any"
-            placeholder="Ej: 2"
-            value={b}
-            onChange={(e) => setB(e.target.value)}
-          />
-        </div>
+      <input
+        type="number"
+        step="any"
+        placeholder="b"
+        value={b}
+        onChange={(e) => setB(e.target.value)}
+        style={inputStyle}
+      />
 
-        <div className="input-group">
-          <label htmlFor="tolerancia">Tolerancia:</label>
-          <input
-            id="tolerancia"
-            type="number"
-            step="any"
-            placeholder="Ej: 0.001"
-            value={tolerancia}
-            onChange={(e) => setTolerancia(e.target.value)}
-          />
-        </div>
+      <input
+        type="number"
+        step="any"
+        placeholder="Tolerancia decimal"
+        value={tolerancia}
+        onChange={(e) => setTolerancia(e.target.value)}
+        style={inputStyle}
+      />
 
-        <div className="input-group">
-          <label htmlFor="iteraciones">Iteraciones máximas:</label>
-          <input
-            id="iteraciones"
-            type="number"
-            placeholder="Ej: 100"
-            value={iteracionesMax}
-            onChange={(e) => setIteracionesMax(e.target.value)}
-          />
-        </div>
+      <input
+        type="number"
+        step="any"
+        placeholder="Iteraciones máximas"
+        value={iteracionesMax}
+        onChange={(e) => setIteracionesMax(e.target.value)}
+        style={inputStyle}
+      />
 
-        <div className="button-group">
-          <button type="button" onClick={calcular} disabled={loading}>
-            {loading ? "Calculando..." : "Calcular"}
-          </button>
-          <button type="button" onClick={limpiar}>Limpiar</button>
-        </div>
-      </form>
+      <br /><br />
+
+      <button onClick={calcular} style={buttonStyle}>
+        Calcular
+      </button>
+      <button onClick={limpiar} style={buttonStyle}>
+        Limpiar
+      </button>
 
       {error && (
-        <div className="error-message">
+        <div style={{
+          background: "#ffe5e5",
+          color: "#b00020",
+          padding: "10px",
+          borderRadius: "6px",
+          marginTop: "10px"
+        }}>
           ⚠ {error}
         </div>
       )}
 
       {resultado && !error && (
-        <div className="result-container">
-          <h3>Raíz aproximada: {resultado.raiz.toFixed(6)}</h3>
+        <div
+          style={{
+            background: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            marginTop: "20px",
+            boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
+          }}
+        >
+          <h3>Raíz aproximada: {resultado.raiz}</h3>
 
-          <div className="table-container">
-            <table className="result-table">
-              <thead>
-                <tr>
-                  <th>i</th>
-                  <th>a</th>
-                  <th>b</th>
-                  <th>c</th>
-                  <th>Error %</th>
+          <table style={{
+            marginTop: "20px",
+            borderCollapse: "collapse",
+            width: "100%"
+          }} 
+          border={1}
+          >
+            <thead>
+              <tr>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>i</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>a</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>b</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>c</th>
+                <th style={{ background: "#161C78", color: "white", padding: "8px" }}>Error %</th>
+              </tr>
+            </thead>
+            <tbody>
+              {resultado.iteraciones.map((it: any) => (
+                <tr key={it.iteracion}>
+                  <td>{it.iteracion}</td>
+                  <td>{it.a.toFixed(4)}</td>
+                  <td>{it.b.toFixed(4)}</td>
+                  <td>{it.c.toFixed(4)}</td>
+                  <td>{it.error.toFixed(4)}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {resultado.iteraciones.map((it: any) => (
-                  <tr key={it.iteracion}>
-                    <td>{it.iteracion}</td>
-                    <td>{it.a.toFixed(6)}</td>
-                    <td>{it.b.toFixed(6)}</td>
-                    <td>{it.c.toFixed(6)}</td>
-                    <td>{it.error.toFixed(6)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
   );
 }
+
+const inputStyle = {
+  padding: "10px",
+  margin: "5px",
+  borderRadius: "6px",
+  border: "1px solid #ccc",
+  width: "180px"
+};
+
+const buttonStyle = {
+  padding: "10px 15px",
+  margin: "10px 5px",
+  borderRadius: "6px",
+  border: "none",
+  background: "#FFE816",
+  cursor: "pointer",
+  fontWeight: "bold"
+};
