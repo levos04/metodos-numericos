@@ -80,9 +80,19 @@ export default function MetodoNewton() {
       <button onClick={calcular}>Calcular</button>
       <button onClick={limpiar}>Limpiar</button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && (
+        <div style={{
+          background: "#ffe5e5",
+          color: "#b00020",
+          padding: "10px",
+          borderRadius: "6px",
+          marginTop: "10px"
+        }}>
+          ⚠ {error}
+        </div>
+      )}
 
-      {resultado && (
+      {resultado && !error && (
         <div>
           <h3>Raíz aproximada: {resultado.raiz}</h3>
 
