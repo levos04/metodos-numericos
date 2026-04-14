@@ -74,7 +74,7 @@ export default function MetodoBiseccion() {
       <input
         type="number"
         step="any"
-        placeholder="Tolerancia (%)"
+        placeholder="Tolerancia decimal"
         value={tolerancia}
         onChange={(e) => setTolerancia(e.target.value)}
       />
