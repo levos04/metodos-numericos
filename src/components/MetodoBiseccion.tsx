@@ -11,6 +11,12 @@ export default function MetodoBiseccion() {
   const [error, setError] = useState("");
 
   const calcular = () => {
+    if (!funcion) return setError("Falta la función");
+    if (!a) return setError("Falta el valor de a");
+    if (!b) return setError("Falta el valor de b");
+    if (!tolerancia) return setError("Falta la tolerancia");
+    if (!iteracionesMax) return setError("Faltan las iteraciones máximas");
+
     try {
       setError("");
 
@@ -50,24 +56,32 @@ export default function MetodoBiseccion() {
       />
 
       <input
+        type="number"
+        step="any"
         placeholder="a"
         value={a}
         onChange={(e) => setA(e.target.value)}
       />
 
       <input
+        type="number"
+        step="any"
         placeholder="b"
         value={b}
         onChange={(e) => setB(e.target.value)}
       />
 
       <input
+        type="number"
+        step="any"
         placeholder="Tolerancia (%)"
         value={tolerancia}
         onChange={(e) => setTolerancia(e.target.value)}
       />
 
       <input
+        type="number"
+        step="any"
         placeholder="Iteraciones máximas"
         value={iteracionesMax}
         onChange={(e) => setIteracionesMax(e.target.value)}
@@ -78,9 +92,19 @@ export default function MetodoBiseccion() {
       <button onClick={calcular}>Calcular</button>
       <button onClick={limpiar}>Limpiar</button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && (
+        <div style={{
+          background: "#ffe5e5",
+          color: "#b00020",
+          padding: "10px",
+          borderRadius: "6px",
+          marginTop: "10px"
+        }}>
+          ⚠ {error}
+        </div>
+      )}
 
-      {resultado && (
+      {resultado && !error && (
         <div>
           <h3>Raíz aproximada: {resultado.raiz}</h3>
 
